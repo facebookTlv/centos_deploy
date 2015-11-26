@@ -48,6 +48,7 @@ class SystemUtils(object):
             with fileinput.FileInput("/etc/sysconfig/selinux", inplace=True) as file:
                 for line in file:
                     print(line.replace("SELINUX=enforcing", "SELINUX=disabled"))
+                    file.close()
                     
     # Check if user run CentOS 6.5 or 6.6
     # This part is actually very-very bad :(
