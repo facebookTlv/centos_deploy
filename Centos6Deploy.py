@@ -1,78 +1,116 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# -*- For Facebook Hackathon -*-
+# -*- author: Alex Berber-*-
+# -*- license: MIT License -*-
 
-from Centos6_Bit64 import *
+import os
+import sys
+import urllib2
+import subprocess
+import socket
 from SystemUtils import *
 
-# Checking version of OS should happened before menu appears
-# Check version of CentOS
-SystemUtils.check_centos_version()
+class Centos6Deploy(object):
 
-# Clear screen before to show menu
-os.system('clear')
+    # Check if user run CentOS 6.5 or 6.6
+    @staticmethod
+    def check_centos_version():
+        if os.path.exists("/etc/redhat-release"):
+            with open("/etc/redhat-release", 'r') as file:
+                version = ''
+                for line in file:
+                    version += line
+                if 'release 6.6' in version:
+                    print 'You are using: CentOS release 6.6'
+                elif 'release 6.5' in version:
+                    print 'You are using: CentOS release 6.5'
+                else:
+                    print sys.version
+                    print 'Your version of Linux incompatible with this script, exit... \n'
+                    sys.exit()
 
-answer = True
-while answer:
-    print ("""
-    LAMP Deploy Script V: 0.1 for CentOS 6.5/6.6 64Bit:
-    ---------------------------------------------------
 
-    1. Check version of your CentOS
-    2. Check Internet connection
-    3. Show me my local IP address
-    4. Open port 80 to Web
-    5. Show me my localhost name
+    # Add EPEL and REMI repository to the system
+    @staticmethod
+    def add_repository():
 
-    ------- LAMP for CentOS 6.x -----------
-    6. Install EPEL & IUS repository
-    7. Install Web Server - Apache
-    8. Install Database - MySQL
-    9. Install Language - PHP
-    10. Install LAMP in "One Click" - CentOS 6.x
-    11. Exit/Quit
-    """)
+        ### Check for EPEL repository
+        if os.path.exists('/etc/yum.repos.d/epel.repo'):
+            print 'Repository EPEL exist...'
 
-    answer = input("Please make your choice: ")
-    if answer == 1:
-        os.system('clear')
-        print ('\nChecking version of the system: ')
-        SystemUtils.check_centos_version()
-    elif answer == 2:
-        os.system('clear')
-        print ('\nChecking if you connected to the Internet')
-        SystemUtils.check_internet_connection()
-    elif answer == 3:
-        os.system('clear')
-        print ('\nYour local IP address is: ' + SystemUtils.check_local_ip())
-    elif answer == 4:
-        os.system('clear')
-        print('\nChecking firewall')
-        Centos6Deploy.iptables_port()
-    elif answer == 5:
-        print "Checking local hostname..."
-        SystemUtils.check_host_name()
-    elif answer == 6:
-        print ('\nInstalling EPEL and IUS repository to the system...')
-        Centos6Deploy.add_repository()
-    elif answer == 7:
-        print ('\nInstalling Web Server Apache...')
-        Centos6Deploy.install_apache()
-    elif answer == 8:
-        print ('\nInstalling database MySQL...')
-        Centos6Deploy.install_mysql()
-    elif answer == 9:
-        print('\nInstalling PHP...')
-        Centos6Deploy.install_php()
-    elif answer == 10:
-        print ('Install LAMP in "One Click" - CentOS 6.x')
-        Centos6Deploy.iptables_port()
-        Centos6Deploy.add_repository()
-        Centos6Deploy.install_mysql()
-        Centos6Deploy.install_php()
-    elif answer == 11:
-        print("\nGoodbye...\n")
-        answer = None
-    else:
-        print ('\nNot valid Choice, Try Again')
-        answer = True
+        ### Check for IUS repository
+        elif os.path.exists('/etc/yum.repos.d/ius.repo'):
+            print 'Repository IUS exist...'
+        else:
+            # Installing EPEL & IUS repository
+            if os.path.exists('/tmp/projectx/repos'):
+                print 'Installing repository EPEL & IUS'
+                os.system('sudo yum install wget' + " > /dev/null 2>&1")
+                os.chdir('/tmp/projectx/repos')
+                os.system('wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm')
+                os.system('wget http://dl.iuscommunity.org/pub/ius/stable/CentOS/6/x86_64/ius-release-1.0-13.ius.centos6.noarch.rpm')
+                os.system('sudo rpm -Uvh /tmp/projectx/repos/ius-release*.rpm')
+                os.system('sudo rpm -Uvh /tmp/projectx/repos/epel-release-6*.rpm')
+
+            else:
+                os.makedirs('/tmp/projectx/repos')
+                os.chdir('/tmp/projectx/repos')
+                os.system('yum install wget -y' + " > /dev/null 2>&1")
+                print 'Installing repository Installing repository EPEL & IUS'
+                os.system('wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm')
+                os.system('wget http://dl.iuscommunity.org/pub/ius/stable/CentOS/6/x86_64/ius-release-1.0-13.ius.centos6.noarch.rpm')
+                os.system('sudo rpm -Uvh /tmp/projectx/repos/epel-release-6*.rpm')
+                os.system('sudo rpm -Uvh /tmp/projectx/repos/ius-release*.rpm')
+
+    # Install web server Apache in CentOS 6.5, 6.6
+    @staticmethod
+    def install_apache():
+        proc = subprocess.Popen(['rpm -qa | grep httpd'], stdout=subprocess.PIPE, shell=True)
+        (out, err) = proc.communicate()
+        if 'httpd-2.2' in out:
+            print 'WARNING!: Apache is already installed in the System... Stop'
+            #sys.exit()
+        else:
+            os.system('sudo yum install httpd -y')
+            os.system('sudo service httpd start')
+            os.system('sudo chkconfig --level 235 httpd on')
+            #os.system('clear')
+            print 'Apache successfully installed into the system'
+            print 'Go to your local IP ' + SystemUtils.check_local_ip() + ' in browser to check it '
+
+    @staticmethod
+    def install_mysql():
+        proc = subprocess.Popen(['rpm -qa | grep mysql'], stdout=subprocess.PIPE, shell=True)
+        (out, err) = proc.communicate()
+        if 'mysql-community-server' in out:
+            print 'WARNING!: MySQL Community server is already installed in the system'
+        else:
+            if not os.path.exists('/tmp/projectx/mysql'):
+                os.makedirs('/tmp/projectx/mysql')
+                os.chdir('/tmp/projectx/mysql')
+
+                # This install Repository
+                os.system('wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm' + " > /dev/null 2>&1")
+                os.system('sudo rpm -Uvh mysql-community-release-el6-5.noarch.rpm')
+
+                # This install DB MySQL Community Edition
+                os.system('sudo yum install mysql-community-server -y')
+                os.system('/etc/init.d/mysqld start')
+                os.system('chkconfig --level 235 mysqld on')
+            else:
+                os.chdir('/tmp/projectx/mysql')
+                if os.path.isfile('http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm'):
+                    os.system('sudo rpm -Uvh mysql-community-release-el6-5.noarch.rpm')
+                else:
+                    os.system('wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm' + " > /dev/null 2>&1")
+                    os.system('sudo rpm -Uvh mysql-community-release-el6-5.noarch.rpm')
+                    os.system('sudo yum install mysql-community-server -y')
+                    os.system('/etc/init.d/mysqld start')
+                    os.system('chkconfig --level 235 mysqld on')
+
+    @staticmethod
+    def install_php():
+        os.system('yum install php php-mysql php-mbstring php-pear php-common php-devel php-cli -y')
+        os.system('/etc/init.d/httpd restart')
+        os.system('/etc/init.d/mysqld restart')
+        print ('PHP is installed successfully')
