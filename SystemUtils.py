@@ -44,12 +44,18 @@ class SystemUtils(object):
 
     @staticmethod
     def disable_selinux():
-        if os.path.exists("/etc/sysconfig/selinux"):
-            with open("/etc/sysconfig/selinux", 'r') as openfile:
-                for line in openfile: 
-                    if 'SELINUX=enforcing' in line.split():
-                        print "alex"
         
+        lines = []        
+        
+        if os.path.exists(selinux_file):
+            with open('/etc/sysconfig/selinux') as infile:
+                for line in infile:
+                    for src, target in replacements.iteritems():
+                        line = line.replace("SELINUX=enforcing", "SELINUX=disabled")
+            with open('/etc/sysconfig/selinux', 'w') as outfile:
+                for lines in lines: 
+                    outfile.write(line)
+                                
         else: 
             print "File SElinux doesn't exist"
 
