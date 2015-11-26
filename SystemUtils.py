@@ -46,7 +46,7 @@ class SystemUtils(object):
     def disable_selinux():
         if os.path.exists("/etc/sysconfig/selinux"):
             with open("/etc/sysconfig/selinux", 'r') as openfile:
-                for line in file: 
+                for line in openfile: 
                     if 'SELINUX=enforcing' in line.split():
                         print "alex"
         
