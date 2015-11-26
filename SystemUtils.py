@@ -45,9 +45,12 @@ class SystemUtils(object):
     def disable_selinux():
         print "Disable SELinux"
         if os.path.exists("/etc/sysconfig/selinux"):
-            with open("/etc/sysconfig/selinux", 'r') as selinux:
+            with open("/etc/sysconfig/selinux", 'r') as file:
+                selinux = ''
                 for selinux in selinux:
-                    print "selinux" + selinux
+                    selinux += line
+                    if 'SELINUX=enforcing' in selinux:
+                        print selinux 
                     
 
     # Check if user run CentOS 6.5 or 6.6
