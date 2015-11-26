@@ -8,7 +8,6 @@ import os
 import sys
 import platform
 import fileinput
-from debian.debfile import PART_EXTS
 
 class SystemUtils(object):
 
@@ -50,7 +49,7 @@ class SystemUtils(object):
                     for line in openfile:
                         for part in line.split():
                             if "/etc/sysconfig/selinux" in part:
-                                print part 
+                                print  part 
         else: 
             print "File SElinux doesn't exist"
 
