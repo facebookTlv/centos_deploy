@@ -55,7 +55,8 @@ class SystemUtils(object):
             with open(selinux_file, 'w') as outfile:
                 for line in lines:
                     outfile.write(line)
-                    print "You should reboot server for completing this action"            
+            
+            print "You should reboot server for completing this action"            
         else: 
             print "File SElinux doesn't exist"      
                                 
