@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# -*- author: Alex -*-
+# -*- For Facebook Hackathon -*-
 
 from Centos6_Bit64 import *
 from SystemUtils import *

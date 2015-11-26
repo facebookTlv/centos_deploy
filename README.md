@@ -1,8 +1,11 @@
-## Facebook Hackaton Tel-Aviv 
-## Simple Project for deploying LAMP to prod Centos \ Ubuntu systems
+## Facebook Hackaton Tel-Aviv
+Simple example of deploy script that will help you to install LAMP on Centos Machine
 
 ## LAMP Deploy Script for CentOS 6.5/6.6 systems
-Very first and 'raw' version of LAMP Deploy Script. LAMP Deploy Script - written with Python 2.7 and should run "out of the box" on CentOS 6.5/6.6 systems. Script was written to help web developers and any new user in Linux to deploy his own, ready to use web server. In one click user can install Apache, MySQL and PHP.
+Very 'raw' version of LAMP Deploy Script.
+LAMP Deploy Script - written with Python 2.7 and should run "out of the box" on CentOS 6.5/6.6 systems.
+Script was written to help web developers and any new user in Linux to deploy his own, ready to use web server.
+In one click user can install Apache, MySQL and PHP.
 
 ## What script should do?
 - Add EPEL & IUS repository to the system
@@ -30,15 +33,13 @@ Script also has support of "Additional tools" that do:
 - Support of `PhpMyAdmin`
 - Create one binary file by using Cython library (optional)
 - To add full support of Ubuntu 12.04/14.04 LTS (optional)
-- Fixing bugZZzzz
 
 ## How-to use
-For now, script contains only two files written on Python:
-* EngineRun.py
-* Centos6.py
+For now, script contains only 3 files written on Python:
+* MainDeploy.py
+* Centos6Deploy.py
+* Centos7Deploy.py
 
-You should run `DeployScript.py` to see "Welcome Screen"
+You should run `MainDeploy.py` to see "Welcome Screen"
 LAMP Deploy Script has been checked only on 64-bit CentOS 6.5 & 6.6, you should avoid to use on 32-bit server.
-Script will not run, if you don't use CentOS 6.5/6.6
-
-## Warning, BUGZZzz
+Script will not run, if you don't use CentOS 6.5/6.6 for now....
