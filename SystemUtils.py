@@ -44,7 +44,7 @@ class SystemUtils(object):
     @staticmethod
     def disable_selinux():
         if os.path.exists("/etc/sysconfig/selinux"):
-            with open("/etc/sysconfig/selinux", 'r') as file:
+            with fileinput.FileInput("/etc/sysconfig/selinux", inplace=True) as file:
                 for line in file:
                     if "SELINUX=enforcing" in line:
                         print(line.replace("SELINUX=enforcing", "SELINUX=disabled"))
