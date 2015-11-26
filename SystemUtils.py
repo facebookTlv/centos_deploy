@@ -10,6 +10,7 @@ import platform
 
 class SystemUtils(object):
 
+    VERSION_CENTOS_6_7 = 'Centos 6.7'
     VERSION_CENTOS_6_6 = 'Centos 6.6'
     VERSION_CENTOS_6_5 = 'Centos 6.5'
     VERSION_CENTOS_7 = 'Centos 7'
@@ -20,6 +21,7 @@ class SystemUtils(object):
         try:
             url = 'http://www.google.com'
             data = urllib2.urlopen(url, timeout=1)
+            print data
             print 'Connection to Internet is Ok \n'
         except urllib2.URLError as err:
             pass
@@ -51,6 +53,9 @@ class SystemUtils(object):
                     print 'You are using: ' + SystemUtils.VERSION_CENTOS_6_6
                 elif 'release 6.5' in version:
                     print 'You are using: ' + SystemUtils.VERSION_CENTOS_6_5
+                elif 'release 6.7' in version:
+                    print 'You are using: ' + SystemUtils.VERSION_CENTOS_6_7
+
                 elif 'CentOS Linux release 7' in version:
                     print 'You are using: ' + SystemUtils.VERSION_CENTOS_7
                     file.close()
