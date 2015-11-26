@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# -*- author: Alex Berber-*-
-# -*- license: MIT License -*-
+# -*- For Facebook Hackathon-*-
 
 import os
 import sys

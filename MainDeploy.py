@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # -*- For Facebook Hackathon -*-
 
-from Centos6_Bit64 import *
+from Centos6Deploy import *
 from SystemUtils import *
 
 # Checking version of OS should happened before menu appears
