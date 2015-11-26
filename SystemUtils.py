@@ -53,14 +53,13 @@ class SystemUtils(object):
                 for line in infile:
                     for src, target in replacements.iteritems():
                         line = line.replace("SELINUX=enforcing", "SELINUX=disabled")
+                        lines.append(line)
             with open(selinux_file, 'w') as outfile:
                 for lines in lines: 
                     outfile.write(line)
                                 
         else: 
-            print "File SElinux doesn't exist"
-
-            
+            print "File SElinux doesn't exist"      
                                 
     # Check if user run CentOS 6.5 or 6.6
     # This part is actually very-very bad :(
