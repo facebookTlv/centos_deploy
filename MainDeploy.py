@@ -21,7 +21,7 @@ while answer:
     1. Check version of your CentOS
     2. Check Internet connection
     3. Show me my local IP address
-    4. Open port 80 to Web
+    4. Disable SELinux in system
     5. Show me my localhost name
 
     ------- LAMP for CentOS 6.x -----------
