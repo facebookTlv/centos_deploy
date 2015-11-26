@@ -43,13 +43,12 @@ class SystemUtils(object):
 
     @staticmethod
     def disable_selinux():
-        print "Disable SELinux"
         if os.path.exists("/etc/sysconfig/selinux"):
             with open("/etc/sysconfig/selinux", 'r') as file:
                 selinux = ''
-                for selinux in selinux:
+                for line in file:
                     selinux += line
-                    if 'SELINUX=enforcing' in selinux:
+                    if 'SELINUX=enforcing' in file:
                         print selinux 
                     
 
