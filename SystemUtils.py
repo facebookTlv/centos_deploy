@@ -8,6 +8,7 @@ import os
 import sys
 import platform
 import fileinput
+from debian.debfile import PART_EXTS
 
 class SystemUtils(object):
 
@@ -45,11 +46,16 @@ class SystemUtils(object):
     @staticmethod
     def disable_selinux():
         if os.path.exists("/etc/sysconfig/selinux"):
-            with fileinput.FileInput("/etc/sysconfig/selinux", inplace=True) as file:
-                for line in file:
-                    print(line.replace("SELINUX=enforcing", "SELINUX=disabled"))
-            file.close()
-                    
+            with open("/etc/sysconfig/selinux", 'r') as openfile:
+                    for line in openfile:
+                        for part in line.split():
+                            if "/etc/sysconfig/selinux" in part:
+                                print part 
+        else: 
+            print "File SElinux doesn't exist"
+
+            
+                                
     # Check if user run CentOS 6.5 or 6.6
     # This part is actually very-very bad :(
     @staticmethod
