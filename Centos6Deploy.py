@@ -11,24 +11,6 @@ from SystemUtils import *
 
 class Centos6Deploy(object):
 
-    # Check if user run CentOS 6.5 or 6.6
-    @staticmethod
-    def check_centos_version():
-        if os.path.exists("/etc/redhat-release"):
-            with open("/etc/redhat-release", 'r') as file:
-                version = ''
-                for line in file:
-                    version += line
-                if 'release 6.6' in version:
-                    print 'You are using: CentOS release 6.6'
-                elif 'release 6.5' in version:
-                    print 'You are using: CentOS release 6.5'
-                else:
-                    print sys.version
-                    print 'Your version of Linux incompatible with this script, exit... \n'
-                    sys.exit()
-
-
     # Add EPEL and REMI repository to the system
     @staticmethod
     def add_repository():
