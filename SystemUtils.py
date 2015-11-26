@@ -52,11 +52,10 @@ class SystemUtils(object):
                 for line in infile:
                     line = line.replace("SELINUX=enforcing", "SELINUX=disabled")
                     lines.append(line)
-                    print lines
             with open(selinux_file, 'w') as outfile:
                 for line in lines:
                     outfile.write(line)
-                                
+                    print "You should reboot server for completing this action"            
         else: 
             print "File SElinux doesn't exist"      
                                 
