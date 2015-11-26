@@ -47,6 +47,7 @@ class SystemUtils(object):
             with open("/etc/sysconfig/selinux", 'r') as selinux:
                 for selinux in selinux:
                     print "selinux" + selinux
+                    print "Test"
 
 
     # Check if user run CentOS 6.5 or 6.6
