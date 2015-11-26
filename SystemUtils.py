@@ -37,11 +37,12 @@ class SystemUtils(object):
     @staticmethod
     def check_local_ip():
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(('8.8.8.8', 0))
+        #s.connect(('8.8.8.8', 0))
         local_ip_address = s.getsockname()[0]
         return local_ip_address
 
     # Check if user run CentOS 6.5 or 6.6
+    # This part is actually very-very bad :(
     @staticmethod
     def check_centos_version():
         if os.path.exists("/etc/redhat-release"):
