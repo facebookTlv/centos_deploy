@@ -43,7 +43,7 @@ class Centos6Deploy(object):
                 os.system('sudo rpm -Uvh /tmp/projectx/repos/epel-release-6*.rpm')
                 os.system('sudo rpm -Uvh /tmp/projectx/repos/ius-release*.rpm')
 
-    # Install web server Apache in CentOS 6.5, 6.6
+    # Install web server Apache in CentOS 6.X
     @staticmethod
     def install_apache():
         proc = subprocess.Popen(['rpm -qa | grep httpd'], stdout=subprocess.PIPE, shell=True)
