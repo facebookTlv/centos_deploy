@@ -45,14 +45,15 @@ class SystemUtils(object):
     @staticmethod
     def disable_selinux():
         
-        lines = []        
+        lines = []
+        selinux_file = '/etc/sysconfig/selinux'        
         
         if os.path.exists(selinux_file):
-            with open('/etc/sysconfig/selinux') as infile:
+            with open(selinux_file) as infile:
                 for line in infile:
                     for src, target in replacements.iteritems():
                         line = line.replace("SELINUX=enforcing", "SELINUX=disabled")
-            with open('/etc/sysconfig/selinux', 'w') as outfile:
+            with open(selinux_file, 'w') as outfile:
                 for lines in lines: 
                     outfile.write(line)
                                 
