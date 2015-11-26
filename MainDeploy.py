@@ -40,7 +40,7 @@ while answer:
         SystemUtils.check_centos_version()
     elif answer == 2:
         os.system('clear')
-        print ('\nChecking if you connected to the Internet')
+        print ('Checking if you connected to the Internet')
         SystemUtils.check_internet_connection()
     elif answer == 3:
         os.system('clear')
