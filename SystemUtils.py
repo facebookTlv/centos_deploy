@@ -58,7 +58,8 @@ class SystemUtils(object):
             
             print "You should reboot server for completing this action"            
         else: 
-            print "File SElinux doesn't exist"      
+            print "File SElinux doesn't exist"
+            print "test"
                                 
     # Check if user run CentOS 6.5 or 6.6
     # This part is actually very-very bad :(
