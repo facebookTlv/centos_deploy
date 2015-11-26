@@ -47,7 +47,7 @@ while answer:
         print ('\nYour local IP address is: ' + SystemUtils.check_local_ip())
     elif answer == 4:
         os.system('clear')
-        print('\nChecking SELinux')
+        print('Disabling SELinux')
         SystemUtils.disable_selinux()
     elif answer == 5:
         os.system('clear')
