@@ -50,6 +50,7 @@ while answer:
         print('\nChecking SELinux')
         SystemUtils.disable_selinux()
     elif answer == 5:
+        os.system('clear')
         print "Checking local hostname..."
         SystemUtils.check_host_name()
     elif answer == 6:
@@ -66,10 +67,11 @@ while answer:
         Centos6Deploy.install_php()
     elif answer == 10:
         print ('Install LAMP in "One Click" - CentOS 6.x')
-        Centos6Deploy.iptables_port()
-        Centos6Deploy.add_repository()
-        Centos6Deploy.install_mysql()
-        Centos6Deploy.install_php()
+        print "nothing here"
+        #Centos6Deploy.iptables_port()
+        #Centos6Deploy.add_repository()
+        #Centos6Deploy.install_mysql()
+        #Centos6Deploy.install_php()
     elif answer == 11:
         print("\nGoodbye...\n")
         answer = None
