@@ -7,6 +7,7 @@ import urllib2
 import os
 import sys
 import platform
+import fileinput
 
 class SystemUtils(object):
 
