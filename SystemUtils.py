@@ -41,6 +41,14 @@ class SystemUtils(object):
         local_ip_address = s.getsockname()[0]
         return local_ip_address
 
+    @staticmethod
+    def disable_selinux():
+        if os.path.exists("/etc/sysconfig/selinux"):
+            with open("/etc/sysconfig/selinux", 'r') as selinux:
+                for selinux in selinux:
+                    print "selinux" + selinux
+
+
     # Check if user run CentOS 6.5 or 6.6
     # This part is actually very-very bad :(
     @staticmethod
